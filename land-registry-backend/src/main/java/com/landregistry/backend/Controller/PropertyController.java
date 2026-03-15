@@ -1,6 +1,7 @@
 package com.landregistry.backend.Controller;
 
 import com.landregistry.backend.dto.PropertyDTO;
+import com.landregistry.backend.response.ApiResponse;
 import com.landregistry.backend.Service.PropertyService;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,17 +18,38 @@ public class PropertyController {
     }
 
     @PostMapping
-    public PropertyDTO addProperty(@RequestBody PropertyDTO propertyDTO) {
-        return propertyService.addProperty(propertyDTO);
+    public ApiResponse<PropertyDTO> addProperty(@RequestBody PropertyDTO propertyDTO) {
+
+        PropertyDTO property = propertyService.addProperty(propertyDTO);
+
+        return new ApiResponse<>(
+                true,
+                "Property created successfully",
+                property
+        );
     }
 
     @GetMapping
-    public List<PropertyDTO> getAllProperties() {
-        return propertyService.getAllProperties();
+    public ApiResponse<List<PropertyDTO>> getAllProperties() {
+
+        List<PropertyDTO> properties = propertyService.getAllProperties();
+
+        return new ApiResponse<>(
+                true,
+                "Properties fetched successfully",
+                properties
+        );
     }
 
     @GetMapping("/{id}")
-    public PropertyDTO getPropertyById(@PathVariable Long id) {
-        return propertyService.getPropertyById(id);
+    public ApiResponse<PropertyDTO> getPropertyById(@PathVariable Long id) {
+
+        PropertyDTO property = propertyService.getPropertyById(id);
+
+        return new ApiResponse<>(
+                true,
+                "Property fetched successfully",
+                property
+        );
     }
 }

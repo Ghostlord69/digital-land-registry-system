@@ -5,6 +5,7 @@ import com.landregistry.backend.Model.User;
 
 public class UserMapper {
 
+    private UserMapper(){}
     public static UserDTO toDTO(User user) {
         if (user == null) {
             return null;

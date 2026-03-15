@@ -1,6 +1,7 @@
 package com.landregistry.backend.Service;
 
 import com.landregistry.backend.dto.VerificationDTO;
+import com.landregistry.backend.exception.ResourceNotFoundException;
 import com.landregistry.backend.mapper.VerificationMapper;
 import com.landregistry.backend.Model.Verification;
 import com.landregistry.backend.Repository.VerificationRepository;
@@ -37,7 +38,8 @@ public class VerificationService {
 
     public VerificationDTO getVerificationById(Long id) {
 
-        Verification verification = verificationRepository.findById(id).orElse(null);
+        Verification verification = verificationRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Verification not found"));
 
         return VerificationMapper.toDTO(verification);
     }

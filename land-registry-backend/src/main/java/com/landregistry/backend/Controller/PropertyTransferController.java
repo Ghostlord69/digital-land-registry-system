@@ -1,6 +1,7 @@
 package com.landregistry.backend.Controller;
 
 import com.landregistry.backend.dto.PropertyTransferDTO;
+import com.landregistry.backend.response.ApiResponse;
 import com.landregistry.backend.Service.PropertyTransferService;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,17 +18,38 @@ public class PropertyTransferController {
     }
 
     @PostMapping
-    public PropertyTransferDTO createTransfer(@RequestBody PropertyTransferDTO transferDTO) {
-        return transferService.createTransfer(transferDTO);
+    public ApiResponse<PropertyTransferDTO> createTransfer(@RequestBody PropertyTransferDTO transferDTO) {
+
+        PropertyTransferDTO transfer = transferService.createTransfer(transferDTO);
+
+        return new ApiResponse<>(
+                true,
+                "Transfer created successfully",
+                transfer
+        );
     }
 
     @GetMapping
-    public List<PropertyTransferDTO> getAllTransfers() {
-        return transferService.getAllTransfers();
+    public ApiResponse<List<PropertyTransferDTO>> getAllTransfers() {
+
+        List<PropertyTransferDTO> transfers = transferService.getAllTransfers();
+
+        return new ApiResponse<>(
+                true,
+                "Transfers fetched successfully",
+                transfers
+        );
     }
 
     @GetMapping("/{id}")
-    public PropertyTransferDTO getTransferById(@PathVariable Long id) {
-        return transferService.getTransferById(id);
+    public ApiResponse<PropertyTransferDTO> getTransferById(@PathVariable Long id) {
+
+        PropertyTransferDTO transfer = transferService.getTransferById(id);
+
+        return new ApiResponse<>(
+                true,
+                "Transfer fetched successfully",
+                transfer
+        );
     }
 }

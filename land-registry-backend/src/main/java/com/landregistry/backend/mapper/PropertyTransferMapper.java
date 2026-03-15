@@ -7,6 +7,7 @@ import com.landregistry.backend.Model.User;
 
 public class PropertyTransferMapper {
 
+    private PropertyTransferMapper(){}
     public static PropertyTransferDTO toDTO(PropertyTransfer transfer) {
 
         if (transfer == null) {

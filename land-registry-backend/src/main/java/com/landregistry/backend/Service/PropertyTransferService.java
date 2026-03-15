@@ -1,6 +1,7 @@
 package com.landregistry.backend.Service;
 
 import com.landregistry.backend.dto.PropertyTransferDTO;
+import com.landregistry.backend.exception.ResourceNotFoundException;
 import com.landregistry.backend.mapper.PropertyTransferMapper;
 import com.landregistry.backend.Model.PropertyTransfer;
 import com.landregistry.backend.Repository.PropertyTransferRepository;
@@ -37,7 +38,8 @@ public class PropertyTransferService {
 
     public PropertyTransferDTO getTransferById(Long id) {
 
-        PropertyTransfer transfer = transferRepository.findById(id).orElse(null);
+        PropertyTransfer transfer = transferRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Transfer not found"));
 
         return PropertyTransferMapper.toDTO(transfer);
     }

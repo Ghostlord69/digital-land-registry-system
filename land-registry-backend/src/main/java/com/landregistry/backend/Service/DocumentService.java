@@ -1,6 +1,7 @@
 package com.landregistry.backend.Service;
 
 import com.landregistry.backend.dto.DocumentDTO;
+import com.landregistry.backend.exception.ResourceNotFoundException;
 import com.landregistry.backend.mapper.DocumentMapper;
 import com.landregistry.backend.Model.Document;
 import com.landregistry.backend.Repository.DocumentRepository;
@@ -37,7 +38,8 @@ public class DocumentService {
 
     public DocumentDTO getDocumentById(Long id) {
 
-        Document document = documentRepository.findById(id).orElse(null);
+        Document document = documentRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Document not found"));
 
         return DocumentMapper.toDTO(document);
     }

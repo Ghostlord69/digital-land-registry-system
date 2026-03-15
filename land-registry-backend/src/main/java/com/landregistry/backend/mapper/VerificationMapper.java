@@ -7,6 +7,7 @@ import com.landregistry.backend.Model.User;
 
 public class VerificationMapper {
 
+    private VerificationMapper(){}
     public static VerificationDTO toDTO(Verification verification) {
 
         if (verification == null) {

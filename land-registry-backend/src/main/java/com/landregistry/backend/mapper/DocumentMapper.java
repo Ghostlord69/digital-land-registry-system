@@ -7,6 +7,7 @@ import com.landregistry.backend.Model.User;
 
 public class DocumentMapper {
 
+    private DocumentMapper(){}
     public static DocumentDTO toDTO(Document document) {
 
         if (document == null) {

@@ -1,6 +1,7 @@
 package com.landregistry.backend.Controller;
 
 import com.landregistry.backend.dto.UserDTO;
+import com.landregistry.backend.response.ApiResponse;
 import com.landregistry.backend.Service.UserService;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,12 +18,26 @@ public class UserController {
     }
 
     @PostMapping("/register")
-    public UserDTO registerUser(@RequestBody UserDTO userDTO) {
-        return userService.registerUser(userDTO);
+    public ApiResponse<UserDTO> registerUser(@RequestBody UserDTO userDTO) {
+
+        UserDTO user = userService.registerUser(userDTO);
+
+        return new ApiResponse<>(
+                true,
+                "User registered successfully",
+                user
+        );
     }
 
     @GetMapping
-    public List<UserDTO> getAllUsers() {
-        return userService.getAllUsers();
+    public ApiResponse<List<UserDTO>> getAllUsers() {
+
+        List<UserDTO> users = userService.getAllUsers();
+
+        return new ApiResponse<>(
+                true,
+                "Users fetched successfully",
+                users
+        );
     }
 }

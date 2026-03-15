@@ -1,6 +1,7 @@
 package com.landregistry.backend.Controller;
 
 import com.landregistry.backend.dto.DocumentDTO;
+import com.landregistry.backend.response.ApiResponse;
 import com.landregistry.backend.Service.DocumentService;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,17 +18,38 @@ public class DocumentController {
     }
 
     @PostMapping
-    public DocumentDTO uploadDocument(@RequestBody DocumentDTO documentDTO) {
-        return documentService.uploadDocument(documentDTO);
+    public ApiResponse<DocumentDTO> uploadDocument(@RequestBody DocumentDTO documentDTO) {
+
+        DocumentDTO document = documentService.uploadDocument(documentDTO);
+
+        return new ApiResponse<>(
+                true,
+                "Document uploaded successfully",
+                document
+        );
     }
 
     @GetMapping
-    public List<DocumentDTO> getAllDocuments() {
-        return documentService.getAllDocuments();
+    public ApiResponse<List<DocumentDTO>> getAllDocuments() {
+
+        List<DocumentDTO> documents = documentService.getAllDocuments();
+
+        return new ApiResponse<>(
+                true,
+                "Documents fetched successfully",
+                documents
+        );
     }
 
     @GetMapping("/{id}")
-    public DocumentDTO getDocumentById(@PathVariable Long id) {
-        return documentService.getDocumentById(id);
+    public ApiResponse<DocumentDTO> getDocumentById(@PathVariable Long id) {
+
+        DocumentDTO document = documentService.getDocumentById(id);
+
+        return new ApiResponse<>(
+                true,
+                "Document fetched successfully",
+                document
+        );
     }
 }

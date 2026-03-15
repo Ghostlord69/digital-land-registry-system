@@ -1,6 +1,7 @@
 package com.landregistry.backend.Service;
 
 import com.landregistry.backend.dto.PropertyDTO;
+import com.landregistry.backend.exception.ResourceNotFoundException;
 import com.landregistry.backend.mapper.PropertyMapper;
 import com.landregistry.backend.Model.Property;
 import com.landregistry.backend.Repository.PropertyRepository;
@@ -37,7 +38,8 @@ public class PropertyService {
 
     public PropertyDTO getPropertyById(Long id) {
 
-        Property property = propertyRepository.findById(id).orElse(null);
+        Property property = propertyRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Property not found"));
 
         return PropertyMapper.toDTO(property);
     }
