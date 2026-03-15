@@ -1,6 +1,6 @@
 package com.landregistry.backend.Controller;
 
-import com.landregistry.backend.Model.Property;
+import com.landregistry.backend.dto.PropertyDTO;
 import com.landregistry.backend.Service.PropertyService;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,12 +17,17 @@ public class PropertyController {
     }
 
     @PostMapping
-    public Property addProperty(@RequestBody Property property) {
-        return propertyService.addProperty(property);
+    public PropertyDTO addProperty(@RequestBody PropertyDTO propertyDTO) {
+        return propertyService.addProperty(propertyDTO);
     }
 
     @GetMapping
-    public List<Property> getAllProperties() {
+    public List<PropertyDTO> getAllProperties() {
         return propertyService.getAllProperties();
+    }
+
+    @GetMapping("/{id}")
+    public PropertyDTO getPropertyById(@PathVariable Long id) {
+        return propertyService.getPropertyById(id);
     }
 }

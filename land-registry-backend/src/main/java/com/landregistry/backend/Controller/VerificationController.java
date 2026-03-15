@@ -1,6 +1,6 @@
 package com.landregistry.backend.Controller;
 
-import com.landregistry.backend.Model.Verification;
+import com.landregistry.backend.dto.VerificationDTO;
 import com.landregistry.backend.Service.VerificationService;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,12 +17,17 @@ public class VerificationController {
     }
 
     @PostMapping
-    public Verification verifyTransfer(@RequestBody Verification verification) {
-        return verificationService.verifyTransfer(verification);
+    public VerificationDTO verifyTransfer(@RequestBody VerificationDTO verificationDTO) {
+        return verificationService.verifyTransfer(verificationDTO);
     }
 
     @GetMapping
-    public List<Verification> getAllVerifications() {
+    public List<VerificationDTO> getAllVerifications() {
         return verificationService.getAllVerifications();
+    }
+
+    @GetMapping("/{id}")
+    public VerificationDTO getVerificationById(@PathVariable Long id) {
+        return verificationService.getVerificationById(id);
     }
 }

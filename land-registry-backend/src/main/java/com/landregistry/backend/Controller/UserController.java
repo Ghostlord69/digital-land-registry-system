@@ -1,6 +1,6 @@
 package com.landregistry.backend.Controller;
 
-import com.landregistry.backend.Model.User;
+import com.landregistry.backend.dto.UserDTO;
 import com.landregistry.backend.Service.UserService;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,12 +17,12 @@ public class UserController {
     }
 
     @PostMapping("/register")
-    public User registerUser(@RequestBody User user) {
-        return userService.registerUser(user);
+    public UserDTO registerUser(@RequestBody UserDTO userDTO) {
+        return userService.registerUser(userDTO);
     }
 
     @GetMapping
-    public List<User> getAllUsers() {
+    public List<UserDTO> getAllUsers() {
         return userService.getAllUsers();
     }
 }

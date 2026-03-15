@@ -1,10 +1,13 @@
 package com.landregistry.backend.Service;
 
+import com.landregistry.backend.dto.DocumentDTO;
+import com.landregistry.backend.mapper.DocumentMapper;
 import com.landregistry.backend.Model.Document;
 import com.landregistry.backend.Repository.DocumentRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class DocumentService {
@@ -15,11 +18,27 @@ public class DocumentService {
         this.documentRepository = documentRepository;
     }
 
-    public Document uploadDocument(Document document) {
-        return documentRepository.save(document);
+    public DocumentDTO uploadDocument(DocumentDTO documentDTO) {
+
+        Document document = DocumentMapper.toEntity(documentDTO);
+
+        Document savedDocument = documentRepository.save(document);
+
+        return DocumentMapper.toDTO(savedDocument);
     }
 
-    public List<Document> getAllDocuments() {
-        return documentRepository.findAll();
+    public List<DocumentDTO> getAllDocuments() {
+
+        return documentRepository.findAll()
+                .stream()
+                .map(DocumentMapper::toDTO)
+                .collect(Collectors.toList());
+    }
+
+    public DocumentDTO getDocumentById(Long id) {
+
+        Document document = documentRepository.findById(id).orElse(null);
+
+        return DocumentMapper.toDTO(document);
     }
 }

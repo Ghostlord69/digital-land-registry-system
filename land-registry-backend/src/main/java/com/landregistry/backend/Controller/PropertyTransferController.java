@@ -1,6 +1,6 @@
 package com.landregistry.backend.Controller;
 
-import com.landregistry.backend.Model.PropertyTransfer;
+import com.landregistry.backend.dto.PropertyTransferDTO;
 import com.landregistry.backend.Service.PropertyTransferService;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,12 +17,17 @@ public class PropertyTransferController {
     }
 
     @PostMapping
-    public PropertyTransfer createTransfer(@RequestBody PropertyTransfer transfer) {
-        return transferService.createTransfer(transfer);
+    public PropertyTransferDTO createTransfer(@RequestBody PropertyTransferDTO transferDTO) {
+        return transferService.createTransfer(transferDTO);
     }
 
     @GetMapping
-    public List<PropertyTransfer> getAllTransfers() {
+    public List<PropertyTransferDTO> getAllTransfers() {
         return transferService.getAllTransfers();
+    }
+
+    @GetMapping("/{id}")
+    public PropertyTransferDTO getTransferById(@PathVariable Long id) {
+        return transferService.getTransferById(id);
     }
 }

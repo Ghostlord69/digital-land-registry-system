@@ -1,6 +1,6 @@
 package com.landregistry.backend.Controller;
 
-import com.landregistry.backend.Model.Document;
+import com.landregistry.backend.dto.DocumentDTO;
 import com.landregistry.backend.Service.DocumentService;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,12 +17,17 @@ public class DocumentController {
     }
 
     @PostMapping
-    public Document uploadDocument(@RequestBody Document document) {
-        return documentService.uploadDocument(document);
+    public DocumentDTO uploadDocument(@RequestBody DocumentDTO documentDTO) {
+        return documentService.uploadDocument(documentDTO);
     }
 
     @GetMapping
-    public List<Document> getAllDocuments() {
+    public List<DocumentDTO> getAllDocuments() {
         return documentService.getAllDocuments();
+    }
+
+    @GetMapping("/{id}")
+    public DocumentDTO getDocumentById(@PathVariable Long id) {
+        return documentService.getDocumentById(id);
     }
 }

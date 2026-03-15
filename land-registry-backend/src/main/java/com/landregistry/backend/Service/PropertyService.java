@@ -1,10 +1,13 @@
 package com.landregistry.backend.Service;
 
+import com.landregistry.backend.dto.PropertyDTO;
+import com.landregistry.backend.mapper.PropertyMapper;
 import com.landregistry.backend.Model.Property;
 import com.landregistry.backend.Repository.PropertyRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class PropertyService {
@@ -15,15 +18,27 @@ public class PropertyService {
         this.propertyRepository = propertyRepository;
     }
 
-    public Property addProperty(Property property) {
-        return propertyRepository.save(property);
+    public PropertyDTO addProperty(PropertyDTO propertyDTO) {
+
+        Property property = PropertyMapper.toEntity(propertyDTO);
+
+        Property savedProperty = propertyRepository.save(property);
+
+        return PropertyMapper.toDTO(savedProperty);
     }
 
-    public List<Property> getAllProperties() {
-        return propertyRepository.findAll();
+    public List<PropertyDTO> getAllProperties() {
+
+        return propertyRepository.findAll()
+                .stream()
+                .map(PropertyMapper::toDTO)
+                .collect(Collectors.toList());
     }
 
-    public Property getPropertyById(Long id) {
-        return propertyRepository.findById(id).orElse(null);
+    public PropertyDTO getPropertyById(Long id) {
+
+        Property property = propertyRepository.findById(id).orElse(null);
+
+        return PropertyMapper.toDTO(property);
     }
 }
