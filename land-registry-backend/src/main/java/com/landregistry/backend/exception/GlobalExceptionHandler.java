@@ -1,6 +1,7 @@
 package com.landregistry.backend.exception;
 
 import com.landregistry.backend.response.ApiResponse;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
@@ -23,6 +24,21 @@ public class GlobalExceptionHandler {
         return new ApiResponse<>(
                 false,
                 "Something went wrong",
+                null
+        );
+    }
+
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    public ApiResponse<String> handleValidationException(MethodArgumentNotValidException ex) {
+
+        String errorMessage = ex.getBindingResult()
+                .getFieldErrors()
+                .get(0)
+                .getDefaultMessage();
+
+        return new ApiResponse<>(
+                false,
+                errorMessage,
                 null
         );
     }

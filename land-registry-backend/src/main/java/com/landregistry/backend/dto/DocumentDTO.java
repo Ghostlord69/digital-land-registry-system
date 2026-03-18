@@ -1,5 +1,6 @@
 package com.landregistry.backend.dto;
 
+import jakarta.validation.constraints.*;
 import lombok.Data;
 import java.time.LocalDateTime;
 
@@ -7,10 +8,18 @@ import java.time.LocalDateTime;
 public class DocumentDTO {
 
     private Long id;
-    private String documentType;
-    private String filePath;
-    private Long propertyId;
-    private Long uploadedBy;
-    private LocalDateTime uploadedAt;
 
+    @NotBlank(message = "Document type is required")
+    private String documentType;
+
+    @NotBlank(message = "File path is required")
+    private String filePath;
+
+    @NotNull(message = "Property ID is required")
+    private Long propertyId;
+
+    @NotNull(message = "UploadedBy ID is required")
+    private Long uploadedBy;
+
+    private LocalDateTime uploadedAt;
 }

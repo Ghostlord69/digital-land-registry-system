@@ -1,5 +1,6 @@
 package com.landregistry.backend.dto;
 
+import jakarta.validation.constraints.*;
 import lombok.Data;
 import java.time.LocalDateTime;
 
@@ -7,10 +8,17 @@ import java.time.LocalDateTime;
 public class VerificationDTO {
 
     private Long id;
-    private Long transferId;
-    private Long officerId;
-    private String status;
-    private String remarks;
-    private LocalDateTime verifiedAt;
 
+    @NotNull(message = "Transfer ID is required")
+    private Long transferId;
+
+    @NotNull(message = "Officer ID is required")
+    private Long officerId;
+
+    @NotBlank(message = "Status is required")
+    private String status;
+
+    private String remarks;
+
+    private LocalDateTime verifiedAt;
 }

@@ -3,6 +3,7 @@ package com.landregistry.backend.Controller;
 import com.landregistry.backend.dto.VerificationDTO;
 import com.landregistry.backend.response.ApiResponse;
 import com.landregistry.backend.Service.VerificationService;
+import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -18,7 +19,7 @@ public class VerificationController {
     }
 
     @PostMapping
-    public ApiResponse<VerificationDTO> verifyTransfer(@RequestBody VerificationDTO verificationDTO) {
+    public ApiResponse<VerificationDTO> verifyTransfer(@Valid @RequestBody VerificationDTO verificationDTO) {
 
         VerificationDTO verification = verificationService.verifyTransfer(verificationDTO);
 

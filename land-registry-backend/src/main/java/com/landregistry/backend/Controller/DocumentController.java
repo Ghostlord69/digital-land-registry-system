@@ -4,6 +4,7 @@ import com.landregistry.backend.dto.DocumentDTO;
 import com.landregistry.backend.response.ApiResponse;
 import com.landregistry.backend.Service.DocumentService;
 import org.springframework.web.bind.annotation.*;
+import jakarta.validation.Valid;
 
 import java.util.List;
 
@@ -18,7 +19,7 @@ public class DocumentController {
     }
 
     @PostMapping
-    public ApiResponse<DocumentDTO> uploadDocument(@RequestBody DocumentDTO documentDTO) {
+    public ApiResponse<DocumentDTO> uploadDocument(@Valid @RequestBody DocumentDTO documentDTO) {
 
         DocumentDTO document = documentService.uploadDocument(documentDTO);
 

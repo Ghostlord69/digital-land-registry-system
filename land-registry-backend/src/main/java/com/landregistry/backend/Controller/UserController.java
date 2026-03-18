@@ -3,6 +3,7 @@ package com.landregistry.backend.Controller;
 import com.landregistry.backend.dto.UserDTO;
 import com.landregistry.backend.response.ApiResponse;
 import com.landregistry.backend.Service.UserService;
+import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -18,7 +19,7 @@ public class UserController {
     }
 
     @PostMapping("/register")
-    public ApiResponse<UserDTO> registerUser(@RequestBody UserDTO userDTO) {
+    public ApiResponse<UserDTO> registerUser(@Valid @RequestBody UserDTO userDTO) {
 
         UserDTO user = userService.registerUser(userDTO);
 

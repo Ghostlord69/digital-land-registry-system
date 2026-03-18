@@ -1,5 +1,6 @@
 package com.landregistry.backend.dto;
 
+import jakarta.validation.constraints.*;
 import lombok.Data;
 import java.time.LocalDateTime;
 
@@ -7,11 +8,21 @@ import java.time.LocalDateTime;
 public class PropertyTransferDTO {
 
     private Long id;
-    private Long propertyId;
-    private Long sellerId;
-    private Long buyerId;
-    private Double price;
-    private String status;
-    private LocalDateTime requestDate;
 
+    @NotNull(message = "Property ID is required")
+    private Long propertyId;
+
+    @NotNull(message = "Seller ID is required")
+    private Long sellerId;
+
+    @NotNull(message = "Buyer ID is required")
+    private Long buyerId;
+
+    @NotNull(message = "Price is required")
+    private Double price;
+
+    @NotBlank(message = "Status is required")
+    private String status;
+
+    private LocalDateTime requestDate;
 }

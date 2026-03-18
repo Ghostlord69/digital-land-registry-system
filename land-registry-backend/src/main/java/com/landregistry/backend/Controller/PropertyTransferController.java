@@ -3,6 +3,7 @@ package com.landregistry.backend.Controller;
 import com.landregistry.backend.dto.PropertyTransferDTO;
 import com.landregistry.backend.response.ApiResponse;
 import com.landregistry.backend.Service.PropertyTransferService;
+import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -18,7 +19,7 @@ public class PropertyTransferController {
     }
 
     @PostMapping
-    public ApiResponse<PropertyTransferDTO> createTransfer(@RequestBody PropertyTransferDTO transferDTO) {
+    public ApiResponse<PropertyTransferDTO> createTransfer(@Valid @RequestBody PropertyTransferDTO transferDTO) {
 
         PropertyTransferDTO transfer = transferService.createTransfer(transferDTO);
 

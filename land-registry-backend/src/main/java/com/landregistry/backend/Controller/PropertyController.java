@@ -3,6 +3,7 @@ package com.landregistry.backend.Controller;
 import com.landregistry.backend.dto.PropertyDTO;
 import com.landregistry.backend.response.ApiResponse;
 import com.landregistry.backend.Service.PropertyService;
+import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -18,7 +19,7 @@ public class PropertyController {
     }
 
     @PostMapping
-    public ApiResponse<PropertyDTO> addProperty(@RequestBody PropertyDTO propertyDTO) {
+    public ApiResponse<PropertyDTO> addProperty(@Valid @RequestBody PropertyDTO propertyDTO) {
 
         PropertyDTO property = propertyService.addProperty(propertyDTO);
 

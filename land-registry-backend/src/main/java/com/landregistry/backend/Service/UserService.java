@@ -1,5 +1,6 @@
 package com.landregistry.backend.Service;
 
+import com.landregistry.backend.Model.Role;
 import com.landregistry.backend.dto.UserDTO;
 import com.landregistry.backend.mapper.UserMapper;
 import com.landregistry.backend.Model.User;
@@ -22,6 +23,7 @@ public class UserService {
 
         User user = UserMapper.toEntity(userDTO);
 
+        user.setRole(Role.USER);
         User savedUser = userRepository.save(user);
 
         return UserMapper.toDTO(savedUser);
