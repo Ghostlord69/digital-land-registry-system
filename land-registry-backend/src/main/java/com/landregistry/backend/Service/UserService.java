@@ -19,16 +19,6 @@ public class UserService {
         this.userRepository = userRepository;
     }
 
-    public UserDTO registerUser(UserDTO userDTO) {
-
-        User user = UserMapper.toEntity(userDTO);
-
-        user.setRole(Role.USER);
-        User savedUser = userRepository.save(user);
-
-        return UserMapper.toDTO(savedUser);
-    }
-
     public List<UserDTO> getAllUsers() {
 
         return userRepository.findAll()

@@ -18,18 +18,6 @@ public class UserController {
         this.userService = userService;
     }
 
-    @PostMapping("/register")
-    public ApiResponse<UserDTO> registerUser(@Valid @RequestBody UserDTO userDTO) {
-
-        UserDTO user = userService.registerUser(userDTO);
-
-        return new ApiResponse<>(
-                true,
-                "User registered successfully",
-                user
-        );
-    }
-
     @GetMapping
     public ApiResponse<List<UserDTO>> getAllUsers() {
 
