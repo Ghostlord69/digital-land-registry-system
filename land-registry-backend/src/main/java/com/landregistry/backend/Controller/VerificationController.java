@@ -4,6 +4,7 @@ import com.landregistry.backend.dto.VerificationDTO;
 import com.landregistry.backend.response.ApiResponse;
 import com.landregistry.backend.Service.VerificationService;
 import jakarta.validation.Valid;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -18,6 +19,7 @@ public class VerificationController {
         this.verificationService = verificationService;
     }
 
+    @PreAuthorize("hasRole('OFFICER')")
     @PostMapping
     public ApiResponse<VerificationDTO> verifyTransfer(@Valid @RequestBody VerificationDTO verificationDTO) {
 

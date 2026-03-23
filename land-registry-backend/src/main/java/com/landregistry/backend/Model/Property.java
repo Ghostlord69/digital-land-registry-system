@@ -13,8 +13,10 @@ public class Property {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(nullable = false)
     private String address;
 
+    @Column(nullable = false)
     private String city;
 
     private Double areaSqft;
@@ -23,6 +25,14 @@ public class Property {
 
     private String status;
 
+    @Column(nullable = false)
+    private String state;
+
+    @Column(nullable = false)
+    private String country;
+
+    @Column(nullable = false)
+    private String pincode;
     @ManyToOne
     @JoinColumn(name = "owner_id")
     private User owner;

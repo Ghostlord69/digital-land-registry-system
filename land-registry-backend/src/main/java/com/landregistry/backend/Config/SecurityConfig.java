@@ -4,6 +4,7 @@ import com.landregistry.backend.Security.JwtFilter;
 import com.landregistry.backend.Security.JwtUtil;
 import com.landregistry.backend.Security.CustomUserDetailsService;
 import org.springframework.context.annotation.*;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.web.*;
@@ -12,6 +13,7 @@ import org.springframework.security.crypto.bcrypt.*;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 @Configuration
+@EnableMethodSecurity
 public class SecurityConfig {
 
     private final JwtUtil jwtUtil;

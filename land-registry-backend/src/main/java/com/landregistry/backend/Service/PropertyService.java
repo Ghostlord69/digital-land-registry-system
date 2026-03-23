@@ -43,4 +43,11 @@ public class PropertyService {
 
         return PropertyMapper.toDTO(property);
     }
+    public List<PropertyDTO> getPropertiesByCity(String city) {
+
+        return propertyRepository.findByCity(city)
+                .stream()
+                .map(PropertyMapper::toDTO)
+                .toList();
+    }
 }

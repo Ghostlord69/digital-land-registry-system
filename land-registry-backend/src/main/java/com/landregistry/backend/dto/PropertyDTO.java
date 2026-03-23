@@ -14,6 +14,15 @@ public class PropertyDTO {
     @NotBlank(message = "City is required")
     private String city;
 
+    @NotBlank(message = "State is required")
+    private String state;
+
+    @NotBlank(message = "Country is required")
+    private String country;
+
+    @NotBlank(message = "Pincode is required")
+    private String pincode;
+
     @NotNull(message = "Area is required")
     private Double areaSqft;
 

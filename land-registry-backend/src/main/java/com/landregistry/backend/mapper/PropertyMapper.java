@@ -18,6 +18,9 @@ public class PropertyMapper {
         dto.setId(property.getId());
         dto.setAddress(property.getAddress());
         dto.setCity(property.getCity());
+        dto.setState(property.getState());
+        dto.setCountry(property.getCountry());
+        dto.setPincode(property.getPincode());
         dto.setAreaSqft(property.getAreaSqft());
         dto.setPrice(property.getPrice());
         dto.setStatus(property.getStatus());
@@ -40,6 +43,9 @@ public class PropertyMapper {
         property.setId(dto.getId());
         property.setAddress(dto.getAddress());
         property.setCity(dto.getCity());
+        property.setState(dto.getState());
+        property.setCountry(dto.getCountry());
+        property.setPincode(dto.getPincode());
         property.setAreaSqft(dto.getAreaSqft());
         property.setPrice(dto.getPrice());
         property.setStatus(dto.getStatus());

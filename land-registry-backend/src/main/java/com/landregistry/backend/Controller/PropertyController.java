@@ -4,6 +4,7 @@ import com.landregistry.backend.dto.PropertyDTO;
 import com.landregistry.backend.response.ApiResponse;
 import com.landregistry.backend.Service.PropertyService;
 import jakarta.validation.Valid;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -18,6 +19,7 @@ public class PropertyController {
         this.propertyService = propertyService;
     }
 
+    @PreAuthorize("hasRole('USER')")
     @PostMapping
     public ApiResponse<PropertyDTO> addProperty(@Valid @RequestBody PropertyDTO propertyDTO) {
 
@@ -29,7 +31,7 @@ public class PropertyController {
                 property
         );
     }
-
+    @PreAuthorize("hasAnyRole('USER', 'ADMIN')")
     @GetMapping
     public ApiResponse<List<PropertyDTO>> getAllProperties() {
 
@@ -51,6 +53,15 @@ public class PropertyController {
                 true,
                 "Property fetched successfully",
                 property
+        );
+    }
+    @GetMapping("/search")
+    public ApiResponse<List<PropertyDTO>> getByCity(@RequestParam String city) {
+
+        return new ApiResponse<>(
+                true,
+                "Properties fetched successfully",
+                propertyService.getPropertiesByCity(city)
         );
     }
 }
