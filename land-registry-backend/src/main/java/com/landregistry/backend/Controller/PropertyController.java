@@ -4,6 +4,7 @@ import com.landregistry.backend.dto.PropertyDTO;
 import com.landregistry.backend.response.ApiResponse;
 import com.landregistry.backend.Service.PropertyService;
 import jakarta.validation.Valid;
+import org.springframework.data.domain.Page;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
@@ -33,14 +34,16 @@ public class PropertyController {
     }
     @PreAuthorize("hasAnyRole('USER', 'ADMIN')")
     @GetMapping
-    public ApiResponse<List<PropertyDTO>> getAllProperties() {
-
-        List<PropertyDTO> properties = propertyService.getAllProperties();
+    public ApiResponse<Page<PropertyDTO>> getAllProperties(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size,
+            @RequestParam(defaultValue = "id") String sortBy
+    ) {
 
         return new ApiResponse<>(
                 true,
                 "Properties fetched successfully",
-                properties
+                propertyService.getAllProperties(page, size, sortBy)
         );
     }
 
@@ -56,12 +59,18 @@ public class PropertyController {
         );
     }
     @GetMapping("/search")
-    public ApiResponse<List<PropertyDTO>> getByCity(@RequestParam String city) {
+    public ApiResponse<List<PropertyDTO>> searchProperties(
+            @RequestParam(required = false) String city,
+            @RequestParam(required = false) Double minPrice,
+            @RequestParam(required = false) Double maxPrice,
+            @RequestParam(required = false) Double minArea,
+            @RequestParam(required = false) Double maxArea
+    ) {
 
         return new ApiResponse<>(
                 true,
-                "Properties fetched successfully",
-                propertyService.getPropertiesByCity(city)
+                "Filtered properties fetched successfully",
+                propertyService.searchProperties(city, minPrice, maxPrice, minArea, maxArea)
         );
     }
 }

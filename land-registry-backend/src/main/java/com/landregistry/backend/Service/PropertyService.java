@@ -6,7 +6,7 @@ import com.landregistry.backend.mapper.PropertyMapper;
 import com.landregistry.backend.Model.Property;
 import com.landregistry.backend.Repository.PropertyRepository;
 import org.springframework.stereotype.Service;
-
+import org.springframework.data.domain.*;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -28,14 +28,14 @@ public class PropertyService {
         return PropertyMapper.toDTO(savedProperty);
     }
 
-    public List<PropertyDTO> getAllProperties() {
+    public Page<PropertyDTO> getAllProperties(int page, int size, String sortBy) {
 
-        return propertyRepository.findAll()
-                .stream()
-                .map(PropertyMapper::toDTO)
-                .collect(Collectors.toList());
+        Pageable pageable = PageRequest.of(page, size, Sort.by(sortBy).descending());
+
+        Page<Property> propertyPage = propertyRepository.findAll(pageable);
+
+        return propertyPage.map(PropertyMapper::toDTO);
     }
-
     public PropertyDTO getPropertyById(Long id) {
 
         Property property = propertyRepository.findById(id)
@@ -43,9 +43,14 @@ public class PropertyService {
 
         return PropertyMapper.toDTO(property);
     }
-    public List<PropertyDTO> getPropertiesByCity(String city) {
 
-        return propertyRepository.findByCity(city)
+    public List<PropertyDTO> searchProperties(String city,
+                                              Double minPrice,
+                                              Double maxPrice,
+                                              Double minArea,
+                                              Double maxArea) {
+
+        return propertyRepository.searchProperties(city, minPrice, maxPrice, minArea, maxArea)
                 .stream()
                 .map(PropertyMapper::toDTO)
                 .toList();

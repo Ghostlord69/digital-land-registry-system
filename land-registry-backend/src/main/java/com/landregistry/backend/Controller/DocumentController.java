@@ -5,6 +5,7 @@ import com.landregistry.backend.response.ApiResponse;
 import com.landregistry.backend.Service.DocumentService;
 import org.springframework.web.bind.annotation.*;
 import jakarta.validation.Valid;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -27,6 +28,22 @@ public class DocumentController {
                 true,
                 "Document uploaded successfully",
                 document
+        );
+    }
+
+    @PostMapping("/upload")
+    public ApiResponse<String> uploadFile(
+            @RequestParam("file") MultipartFile file,
+            @RequestParam Long propertyId,
+            @RequestParam Long userId
+    ) {
+
+        String filePath = documentService.saveFile(file, propertyId, userId);
+
+        return new ApiResponse<>(
+                true,
+                "File uploaded successfully",
+                filePath
         );
     }
 
