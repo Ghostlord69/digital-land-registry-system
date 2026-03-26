@@ -3,6 +3,8 @@ package com.landregistry.backend.dto;
 import jakarta.validation.constraints.*;
 import lombok.Data;
 
+import java.util.List;
+
 @Data
 public class PropertyDTO {
 
@@ -34,4 +36,6 @@ public class PropertyDTO {
 
     @NotNull(message = "Owner ID is required")
     private Long ownerId;
+
+    private List<String> images;
 }

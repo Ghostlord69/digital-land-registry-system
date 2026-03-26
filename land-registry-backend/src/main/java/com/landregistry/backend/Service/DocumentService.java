@@ -86,7 +86,8 @@ public class DocumentService {
 
             documentRepository.save(document);
 
-            return filePath;
+            String baseUrl = "http://localhost:8080/";
+            return baseUrl + filePath;
 
         } catch (IOException e) {
             e.printStackTrace();

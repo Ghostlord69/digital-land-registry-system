@@ -4,6 +4,8 @@ import com.landregistry.backend.dto.PropertyDTO;
 import com.landregistry.backend.Model.Property;
 import com.landregistry.backend.Model.User;
 
+import java.util.List;
+
 public class PropertyMapper {
 
     private PropertyMapper(){}
@@ -28,7 +30,14 @@ public class PropertyMapper {
         if (property.getOwner() != null) {
             dto.setOwnerId(property.getOwner().getId());
         }
+        if (property.getDocuments() != null) {
+            List<String> imageUrls = property.getDocuments()
+                    .stream()
+                    .map(doc -> "http://localhost:8080/" + doc.getFilePath())
+                    .toList();
 
+            dto.setImages(imageUrls);
+        }
         return dto;
     }
 

@@ -1,5 +1,6 @@
 package com.landregistry.backend.Service;
 
+import com.landregistry.backend.dto.PaginationResponse;
 import com.landregistry.backend.dto.PropertyDTO;
 import com.landregistry.backend.exception.ResourceNotFoundException;
 import com.landregistry.backend.mapper.PropertyMapper;
@@ -28,14 +29,29 @@ public class PropertyService {
         return PropertyMapper.toDTO(savedProperty);
     }
 
-    public Page<PropertyDTO> getAllProperties(int page, int size, String sortBy) {
+    public PaginationResponse<PropertyDTO> getAllProperties(int page, int size, String sortBy) {
 
         Pageable pageable = PageRequest.of(page, size, Sort.by(sortBy).descending());
 
         Page<Property> propertyPage = propertyRepository.findAll(pageable);
 
-        return propertyPage.map(PropertyMapper::toDTO);
+        PaginationResponse<PropertyDTO> response = new PaginationResponse<>();
+
+        response.setContent(
+                propertyPage.getContent()
+                        .stream()
+                        .map(PropertyMapper::toDTO)
+                        .toList()
+        );
+
+        response.setPage(propertyPage.getNumber());
+        response.setSize(propertyPage.getSize());
+        response.setTotalElements(propertyPage.getTotalElements());
+        response.setTotalPages(propertyPage.getTotalPages());
+
+        return response;
     }
+
     public PropertyDTO getPropertyById(Long id) {
 
         Property property = propertyRepository.findById(id)

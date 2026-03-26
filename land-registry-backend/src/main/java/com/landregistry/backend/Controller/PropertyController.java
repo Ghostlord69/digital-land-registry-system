@@ -1,5 +1,6 @@
 package com.landregistry.backend.Controller;
 
+import com.landregistry.backend.dto.PaginationResponse;
 import com.landregistry.backend.dto.PropertyDTO;
 import com.landregistry.backend.response.ApiResponse;
 import com.landregistry.backend.Service.PropertyService;
@@ -34,7 +35,7 @@ public class PropertyController {
     }
     @PreAuthorize("hasAnyRole('USER', 'ADMIN')")
     @GetMapping
-    public ApiResponse<Page<PropertyDTO>> getAllProperties(
+    public ApiResponse<PaginationResponse<PropertyDTO>> getAllProperties(
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "10") int size,
             @RequestParam(defaultValue = "id") String sortBy

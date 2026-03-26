@@ -3,6 +3,8 @@ package com.landregistry.backend.Model;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.List;
+
 @Entity
 @Data
 @NoArgsConstructor
@@ -33,7 +35,11 @@ public class Property {
 
     @Column(nullable = false)
     private String pincode;
+
     @ManyToOne
     @JoinColumn(name = "owner_id")
     private User owner;
+
+    @OneToMany(mappedBy = "property", fetch = FetchType.EAGER)
+    private List<Document> documents;
 }
