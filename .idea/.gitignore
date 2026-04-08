@@ -8,5 +8,3 @@
 /dataSources.local.xml
 # Editor-based HTTP Client requests
 /httpRequests/
-frontend/node_modules/
-frontend/dist/
